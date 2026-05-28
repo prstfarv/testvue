@@ -6,7 +6,7 @@ export default defineNuxtConfig({
     '@nuxtjs/supabase'
   ],
   app: {
-    baseURL: '/testvue/' // <--- Ensure this is here
+    baseURL: '/testvue/'
   },
   supabase: {
     url: process.env.SUPABASE_URL || 'https://mcyvnwyswlrskhoblaxt.supabase.co',
