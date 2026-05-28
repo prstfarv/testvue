@@ -35,32 +35,27 @@ async function handleLogin() {
   loading.value = true
   
   try {
-    // 1. Create a 5-second timeout
     const timeoutPromise = new Promise((_, reject) => 
       setTimeout(() => reject(new Error('Connection Timeout')), 5000)
     )
 
-    // 2. Race the login against the timeout
-    // If login takes > 5s, we cancel it.
     await Promise.race([
       authStore.login(form.value.email, form.value.password),
       timeoutPromise
     ])
 
-    // 3. Wait for user state (Keep this existing logic)
     const user = useSupabaseUser()
     let attempts = 0
+    /** Promise max attempts */
     while (!user.value && attempts < 20) {
       await new Promise(resolve => setTimeout(resolve, 100))
       attempts++
     }
 
-    // 4. Success
     toast.add({ title: 'Success', color: 'green' })
     await navigateTo('/dashboard')
 
   } catch (error) {
-    // 5. Handle specific errors
     if (error.message === 'Connection Timeout') {
       toast.add({
         title: 'Connection Unstable',
