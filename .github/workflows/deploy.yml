@@ -5,7 +5,8 @@ on:
     branches: ['main']
 
 jobs:
-  deploy:
+  # Job 1: Build and Upload
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -15,28 +16,24 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-
       - name: Install dependencies
-        run: pnpm install
+        run: npm install
 
       - name: Generate Static Site
-        run: pnpm nuxi generate
+        run: npm run generate
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: .output/public
 
+  # Job 2: Deploy to Pages
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: deploy
+    needs: build
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
