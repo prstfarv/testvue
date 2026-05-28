@@ -2424,7 +2424,22 @@ _6rl4uqj9VrJr3U4v0guihqH8IhvpiUWu9RITZzJi_m4,
 _wH6JrtIxmaSoA8lCPWFnE9z4lQeXW6H5z3l5aymEQw
 ];
 
-const assets = {};
+const assets = {
+  "/index.mjs": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"1c765-psazJXudVxHEQ09Ta5b/+ZYKrOc\"",
+    "mtime": "2026-05-28T10:33:52.580Z",
+    "size": 116581,
+    "path": "index.mjs"
+  },
+  "/index.mjs.map": {
+    "type": "application/json",
+    "etag": "\"6d892-zyeZtn8rv97qYluhkyVMWYI3sjY\"",
+    "mtime": "2026-05-28T10:33:52.580Z",
+    "size": 448658,
+    "path": "index.mjs.map"
+  }
+};
 
 function readAsset (id) {
   const serverDir = dirname$1(fileURLToPath(globalThis._importMeta_.url));

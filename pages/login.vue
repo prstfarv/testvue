@@ -33,28 +33,58 @@ const loading = ref(false)
 
 async function handleLogin() {
   loading.value = true
+  
   try {
-    await authStore.login(form.value.email, form.value.password)
+    // 1. Create a 5-second timeout
+    const timeoutPromise = new Promise((_, reject) => 
+      setTimeout(() => reject(new Error('Connection Timeout')), 5000)
+    )
+
+    // 2. Race the login against the timeout
+    // If login takes > 5s, we cancel it.
+    await Promise.race([
+      authStore.login(form.value.email, form.value.password),
+      timeoutPromise
+    ])
+
+    // 3. Wait for user state (Keep this existing logic)
+    const user = useSupabaseUser()
+    let attempts = 0
+    while (!user.value && attempts < 20) {
+      await new Promise(resolve => setTimeout(resolve, 100))
+      attempts++
+    }
+
+    // 4. Success
+    toast.add({ title: 'Success', color: 'green' })
     await navigateTo('/dashboard')
+
   } catch (error) {
-    console.error('error '+error)
-    toast.add({
-      title: 'Login Failed',
-      description: 'Please check your email and password.',
-      color: 'red',
-      icon: 'i-heroicons-exclamation-circle-20-solid'
-    })
+    // 5. Handle specific errors
+    if (error.message === 'Connection Timeout') {
+      toast.add({
+        title: 'Connection Unstable',
+        description: 'Request timed out. Please check your internet.',
+        color: 'red'
+      })
+    } else {
+      console.error('Login error:', error)
+      toast.add({
+        title: 'Login Failed',
+        description: error.message || 'Invalid credentials',
+        color: 'red'
+      })
+    }
   } finally {
     loading.value = false
-    toast.add({
-      title: 'Successfull logged in',
-      color: 'green',
-      icon: 'ok'
-    })
   }
 }
 
-onMounted(()=>{
-    console.log("mounted")
+onMounted(() => {
+  console.log('mounted')
+  const user = useSupabaseUser()
+  if (user.value) {
+    navigateTo('/dashboard') // This might be slow if network is bad
+  }
 })
 </script>
