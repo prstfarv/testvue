@@ -850,7 +850,7 @@ function _expandFromEnv(value) {
 
 const _inlineRuntimeConfig = {
   "app": {
-    "baseURL": "/",
+    "baseURL": "/testvue/",
     "buildId": "dev",
     "buildAssetsDir": "/_nuxt/",
     "cdnURL": ""
@@ -2174,7 +2174,7 @@ async function defaultHandler(error, event, opts) {
   const statusMessage = error.statusMessage || "Server Error";
   const url = getRequestURL(event, { xForwardedHost: true, xForwardedProto: true });
   if (statusCode === 404) {
-    const baseURL = "/";
+    const baseURL = "/testvue/";
     if (/^\/[^/]/.test(baseURL) && !url.pathname.startsWith(baseURL)) {
       const redirectTo = `${baseURL}${url.pathname.slice(1)}${url.search}`;
       return {
@@ -2427,16 +2427,16 @@ _wH6JrtIxmaSoA8lCPWFnE9z4lQeXW6H5z3l5aymEQw
 const assets = {
   "/index.mjs": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"1c765-psazJXudVxHEQ09Ta5b/+ZYKrOc\"",
-    "mtime": "2026-05-28T10:33:52.580Z",
-    "size": 116581,
+    "etag": "\"1c775-1RALKmZjGHpEjutjuAi6nSo9qmQ\"",
+    "mtime": "2026-05-28T14:52:44.208Z",
+    "size": 116597,
     "path": "index.mjs"
   },
   "/index.mjs.map": {
     "type": "application/json",
-    "etag": "\"6d892-zyeZtn8rv97qYluhkyVMWYI3sjY\"",
-    "mtime": "2026-05-28T10:33:52.580Z",
-    "size": 448658,
+    "etag": "\"6d8e2-GE7lRrAxOCHylc1TibZnGuQ5TyA\"",
+    "mtime": "2026-05-28T14:52:44.209Z",
+    "size": 448738,
     "path": "index.mjs.map"
   }
 };
