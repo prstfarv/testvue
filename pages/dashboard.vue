@@ -45,14 +45,6 @@
         </UDropdownMenu>
       </template>
 
-      <template #default="{ state }">
-        <UNavigationMenu
-          :key="state"
-          orientation="vertical"
-          :ui="{ link: 'p-1.5 overflow-hidden' }"
-        />
-      </template>
-
     </USidebar>
 
     <div class="flex-1 flex flex-col">
