@@ -52,7 +52,7 @@ async function handleLogin() {
       attempts++
     }
 
-    toast.add({ title: 'Success', color: 'green' })
+    toast.add({ title: $t('welcome'), color: 'green' })
     await navigateTo('/dashboard')
 
   } catch (error) {
