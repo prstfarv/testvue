@@ -17,5 +17,6 @@ const { locale, locales, setLocale } = useI18n()
 
 const switchLanguage = (code) => {
   appst.setLocale(code)
+  console.log(appst)
 }
 </script>
