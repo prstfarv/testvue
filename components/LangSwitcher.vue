@@ -16,6 +16,7 @@ const appst = appStore()
 const { locale, locales, setLocale } = useI18n()
 
 const switchLanguage = (code) => {
+  console.log("switch language")
   appst.setLocale(code)
   console.log(appst)
 }
