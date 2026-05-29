@@ -4,7 +4,7 @@ export const appStore = defineStore('app', () => {
     const currentLanguage = computed(() => locale.value)
 
     async function setLanguage(lang) {
-        await setLocale(lang)
+        locale.value = lang
     }
     
     return {
