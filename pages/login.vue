@@ -2,7 +2,7 @@
   <div class="min-h-screen flex items-center justify-center bg-gray-50">
     <UCard class="w-full max-w-sm">
       <template #header>
-        <h2 class="text-2xl font-bold text-center">Sign In</h2>
+        <h2 class="text-2xl font-bold text-center">{{$t('login')}}</h2>
       </template>
 
       <UForm :state="form" @submit.prevent="handleLogin">
