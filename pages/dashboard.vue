@@ -16,56 +16,40 @@
       </UCard>
     </div>
   </div>-->
-  <div class="flex flex-1">
-    <USidebar
-      v-model:open="sidebarOpen"
-      collapsible="icon"
-      rail
-      :ui="{
-        container: 'h-full',
-        inner: 'bg-elevated/25 divide-transparent',
-        body: 'py-0'
-      }"
-    >
-      <template #header>
-        <UDropdownMenu
-          :content="{ align: 'start', collisionPadding: 12 }"
-          :ui="{ content: 'w-(--reka-dropdown-menu-trigger-width) min-w-48' }"
-        >
-          <UButton
-            trailing-icon="i-lucide-chevrons-up-down"
-            color="neutral"
-            variant="ghost"
-            square
-            class="w-full overflow-hidden"
-            :ui="{
-              trailingIcon: 'text-dimmed ms-auto'
-            }"
-          />
-        </UDropdownMenu>
+  <UContainer>
+    <UHeader>
+      <template #title>
+        <Logo class="h-6 w-auto" />
       </template>
 
-    </USidebar>
+      <UNavigationMenu :items="items" />
 
-    <div class="flex-1 flex flex-col">
-      <div class="h-(--ui-header-height) shrink-0 flex items-center px-4 border-b border-default">
-        <UButton
-          icon="i-lucide-panel-left"
-          color="neutral"
-          variant="ghost"
-          aria-label="Toggle sidebar"
-          @click="sidebarOpen = !sidebarOpen"
-        />
-      </div>
+      <template #right>
+        <UColorModeButton />
 
-      <div class="flex-1 p-4">
-        <Placeholder class="size-full" />
-      </div>
-    </div>
-  </div>
+        <UTooltip text="Open on GitHub" :kbds="['meta', 'G']">
+          <UButton
+            color="neutral"
+            variant="ghost"
+            to="https://github.com/nuxt/ui"
+            target="_blank"
+            icon="i-simple-icons-github"
+            aria-label="GitHub"
+          />
+        </UTooltip>
+      </template>
+
+      <template #body>
+        <UNavigationMenu :items="items" orientation="vertical" class="-mx-2.5" />
+      </template>
+    </UHeader>
+  </UContainer>
+
 </template>
 
 <script setup lang="ts">
+import type { NavigationMenuItem } from '@nuxt/ui'
+
 /** Prevent for displaying before login */
 definePageMeta({ middleware: ['auth'] })
 
@@ -73,9 +57,37 @@ const loading = ref(false)
 
 const client = useSupabaseClient()
 const authStore = useAuthStore()
-//const user = useSupabaseUser()
+
 
 const sidebarOpen = ref(true)
+
+
+
+const route = useRoute()
+
+const items = computed<NavigationMenuItem[]>(() => [{
+  label: 'Docs',
+  to: '/docs/getting-started',
+  icon: 'i-lucide-book-open',
+  active: route.path.startsWith('/docs/getting-started')
+}, {
+  label: 'Components',
+  to: '/docs/components',
+  icon: 'i-lucide-box',
+  active: route.path.startsWith('/docs/components')
+}, {
+  label: 'Figma',
+  icon: 'i-simple-icons-figma',
+  to: 'https://go.nuxt.com/figma-ui',
+  target: '_blank'
+}, {
+  label: 'Releases',
+  icon: 'i-lucide-rocket',
+  to: 'https://github.com/nuxt/ui/releases',
+  target: '_blank'
+}])
+
+
 
 async function handleLogout() {
   if (loading.value) return
