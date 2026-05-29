@@ -37,7 +37,7 @@
             color="neutral"
             variant="ghost"
             square
-            class="w-full data-[state=open]:bg-elevated overflow-hidden"
+            class="w-full overflow-hidden"
             :ui="{
               trailingIcon: 'text-dimmed ms-auto'
             }"
@@ -62,7 +62,7 @@
           color="neutral"
           variant="ghost"
           aria-label="Toggle sidebar"
-          @click="open = !open"
+          @click="sidebarOpen = !sidebarOpen"
         />
       </div>
 
