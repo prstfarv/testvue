@@ -14,11 +14,16 @@ export default defineNuxtConfig({
     defaultLocale: 'en',
     lazy: true,
     langDir: '../locales/',
-    strategy: 'prefix_except_default',
+    strategy: 'no_prefix',
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'i18n_redirected',
       redirectOn: 'root'
+    },
+    cookie: {
+      secure: false, // Set true for HTTPS
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 24 * 30 // 30 days
     }
   },
   app: {

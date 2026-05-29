@@ -1,4 +1,4 @@
-export const appStore('app', () => {
+export const appStore = defineStore('app', () => {
     const { locale, setLocale } = useI18n()
 
     const currentLanguage = computed(() => locale.value)
