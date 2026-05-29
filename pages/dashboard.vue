@@ -5,13 +5,10 @@
       
       <UCard>
         <p class="text-lg text-gray-700">
-          Welcome back, <span class="font-semibold">{{ user?.email }}</span>
+          {{ $t('welcome')  }}<span class="font-semibold">{{ user?.email }}</span>
         </p>
         
         <div class="mt-6 flex gap-3">
-          <UButton color="gray" variant="outline" @click="showToken">
-            Show Token (Console)
-          </UButton>
           <UButton :loading="loading" color="red" @click="handleLogout">
             Logout
           </UButton>

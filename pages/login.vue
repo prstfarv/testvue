@@ -1,5 +1,6 @@
 <template>
   <div class="min-h-screen flex items-center justify-center bg-gray-50">
+    <LangSwitcher />
     <UCard class="w-full max-w-sm">
       <template #header>
         <h2 class="text-2xl font-bold text-center">{{$t('login')}}</h2>
