@@ -4,6 +4,11 @@ on:
   push:
     branches: ['master']
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   # Job 1: Build and Upload
   build:
