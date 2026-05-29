@@ -12,9 +12,10 @@
 </template>
 
 <script setup lang="ts">
+const appst = appStore()
 const { locale, locales, setLocale } = useI18n()
 
 const switchLanguage = (code) => {
-  setLocale(code)
+  appst.setLocale(code)
 }
 </script>
