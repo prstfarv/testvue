@@ -8,12 +8,12 @@ export default defineNuxtConfig({
   ],
   i18n: {
     locales: [
-      { code: 'en', iso: 'en-US', file: 'en1.json', name: 'English' },
-      { code: 'ru', iso: 'ru-RU', file: 'ru1.json', name: 'Русский' }
+      { code: 'en', iso: 'en-US', file: 'en.json', name: 'English' },
+      { code: 'ru', iso: 'ru-RU', file: 'ru.json', name: 'Русский' }
     ],
     defaultLocale: 'en',
     lazy: true,
-    langDir: '/locales/',
+    langDir: 'locales/',
     strategy: 'prefix_except_default',
     detectBrowserLanguage: {
       useCookie: true,
