@@ -1,11 +1,3 @@
-<script setup lang="ts">
-const { locale, locales } = useI18n()
-
-function switchLanguage(code: string) {
-  locale.value = code
-}
-</script>
-
 <template>
   <div class="flex gap-2 p-4">
     <button 
@@ -18,3 +10,11 @@ function switchLanguage(code: string) {
     </button>
   </div>
 </template>
+
+<script setup lang="ts">
+const { locale, locales } = useI18n()
+
+const switchLanguage = (code) => {
+  locale.value = code
+}
+</script>
