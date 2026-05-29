@@ -1,5 +1,5 @@
 {
-  "login": "Login",
-  "logout": "Logout",
-  "welcome": "Welcome to the Dashboard"
+  "login": "ВОйти",
+  "logout": "Выйти",
+  "welcome": "Добро пожаловать, в панель управления"
 }
