@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-  ssr: false,
+  ssr: false, /** Put to false before deploy */
   modules: [
     '@nuxt/ui',
     '@pinia/nuxt',
@@ -21,13 +21,13 @@ export default defineNuxtConfig({
       redirectOn: 'root'
     },
     cookie: {
-      secure: false, // Set true for HTTPS
+      secure: false,
       sameSite: 'lax',
-      maxAge: 60 * 60 * 24 * 30 // 30 days
+      maxAge: 60 * 60 * 24 * 30
     }
   },
   ui: {
-    global: true, // Enables global styles
+    global: true,
   },
   app: {
     baseURL: '/testvue/'

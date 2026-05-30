@@ -1,7 +1,6 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gray-50">
-    <LangSwitcher />
-    <UCard class="w-full max-w-sm">
+  <!--<div class="login__bgscreen min-h-screen flex items-center justify-center bg-gray-50 bg-[url('/images/login_bg.jpg')] bg-cover">
+    <UCard class="w-full">
       <template #header>
         <h2 class="text-2xl font-bold text-center">{{$t('login')}}</h2>
       </template>
@@ -20,11 +19,46 @@
         </UButton>
       </UForm>
     </UCard>
+    <LangSwitcher />
+  </div>-->
+    <div class="login__bgscreen relative min-h-screen flex flex-col md:flex-row">
+    
+    <!-- LEFT SIDE (Login Form) -->
+    <div class="w-full md:w-1/3 flex items-center backdrop-blur-md justify-center p-6">
+      <UCard class="w-full bg-transparent ring-0 max-w-sm"  :ui="{ ring: '' , divide: '' }">
+        <template #header>
+          <h2 class="text-4xl text-white uppercase font-bold">Login</h2>
+        </template>
+
+        <UForm :state="form" @submit.prevent="handleLogin">
+          <UFormGroup label="Email">
+            <UInput label="Email" v-model="form.email" placeholder="john@example.com" icon="i-heroicons-envelope" />
+          </UFormGroup>
+
+          <UFormGroup class="mb-6" label="Password">
+            <UInput v-model="form.password" type="password" placeholder="••••••••" icon="i-heroicons-lock-closed" />
+          </UFormGroup>
+
+          <UButton color="red" type="submit" block :loading="loading" variant="solid" size="lg">
+            Sign In
+          </UButton>
+        </UForm>
+      </UCard>
+    </div>
+
+    <div class="absolute left-[25.3%] top-0 bottom-0 w-1 bg-red-500 hidden md:block"></div>
+
+    <!-- RIGHT SIDE (Image / Brand) -->
+    <div class="w-full hidden md:flex items-center justify-center">
+      <div>
+        
+      </div>
+    </div>
+
   </div>
 </template>
 
 <script setup lang="ts">
-import {ref, onMounted} from 'vue'
 const authStore = useAuthStore()
 
 const toast = useToast()
@@ -84,3 +118,11 @@ onMounted(() => {
   }
 })
 </script>
+
+<style lang="stylus" scoped>
+.login__bgscreen
+    background-image: url('/images/login_bg.jpg')
+    background-size: cover
+    background-position: center
+    background-repeat: no-repeat
+</style>

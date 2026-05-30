@@ -30,7 +30,7 @@ import { readFile } from 'node:fs/promises';
 import consola, { consola as consola$1 } from 'file://D:/me/save/git/vuetest/testvue/node_modules/consola/dist/index.mjs';
 import { ErrorParser } from 'file://D:/me/save/git/vuetest/testvue/node_modules/youch-core/build/index.js';
 import { Youch } from 'file://D:/me/save/git/vuetest/testvue/node_modules/youch/build/index.js';
-import { SourceMapConsumer } from 'file://D:/me/save/git/vuetest/testvue/node_modules/nitropack/node_modules/source-map/source-map.js';
+import { SourceMapConsumer } from 'file://D:/me/save/git/vuetest/testvue/node_modules/source-map/source-map.js';
 import { createRouterMatcher } from 'file://D:/me/save/git/vuetest/testvue/node_modules/@nuxtjs/i18n/node_modules/vue-router/vue-router.node.mjs';
 import { AsyncLocalStorage } from 'node:async_hooks';
 import { getContext } from 'file://D:/me/save/git/vuetest/testvue/node_modules/unctx/dist/index.mjs';
@@ -587,7 +587,7 @@ const cachedEventHandler = defineCachedEventHandler;
 const inlineAppConfig = {
   "nuxt": {},
   "icon": {
-    "provider": "iconify",
+    "provider": "server",
     "class": "",
     "aliases": {},
     "iconifyApiEndpoint": "https://api.iconify.design",
@@ -3134,16 +3134,16 @@ _wH6JrtIxmaSoA8lCPWFnE9z4lQeXW6H5z3l5aymEQw
 const assets = {
   "/index.mjs": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"2287c-jJAmnMYGQJSwGa3Vzz0v4I6ae9Y\"",
-    "mtime": "2026-05-30T05:54:20.002Z",
-    "size": 141436,
+    "etag": "\"228c6-7I1JwJneeMuwqE1/87azE74f7PQ\"",
+    "mtime": "2026-05-30T06:07:11.798Z",
+    "size": 141510,
     "path": "index.mjs"
   },
   "/index.mjs.map": {
     "type": "application/json",
-    "etag": "\"85fc7-BbXFxuvayq6Dwam/gzxk7J5iJTQ\"",
-    "mtime": "2026-05-30T05:54:20.003Z",
-    "size": 548807,
+    "etag": "\"8612c-GqY3yIjNgIWFrG8VBaf6J21gMKI\"",
+    "mtime": "2026-05-30T06:07:11.798Z",
+    "size": 549164,
     "path": "index.mjs.map"
   }
 };
@@ -3481,7 +3481,7 @@ function createSSRContext(event) {
 		url,
 		event,
 		runtimeConfig: useRuntimeConfig(event),
-		noSSR: true,
+		noSSR: event.context.nuxt?.noSSR || (false),
 		head: createHead(unheadOptions),
 		error: false,
 		nuxt: undefined,
@@ -3579,7 +3579,7 @@ function lazyCachedFunction(fn) {
 	};
 }
 function getRenderer(ssrContext) {
-	return getSPARenderer() ;
+	return ssrContext.noSSR ? getSPARenderer() : getSSRRenderer();
 }
 // @ts-expect-error file will be produced after app build
 const getSSRStyles = lazyCachedFunction(() => Promise.resolve().then(function () { return styles$1; }).then((r) => r.default || r));
@@ -4141,7 +4141,7 @@ function renderPayloadJsonScript(opts) {
 		"type": "application/json",
 		"innerHTML": contents,
 		"data-nuxt-data": appId,
-		"data-ssr": false
+		"data-ssr": !(opts.ssrContext.noSSR)
 	};
 	{
 		payload.id = "__NUXT_DATA__";
@@ -4224,7 +4224,7 @@ async function renderRoute(event, ssrError) {
 	}
 	const payloadURL = _PAYLOAD_EXTRACTION ? joinURL(ssrContext.runtimeConfig.app.cdnURL || ssrContext.runtimeConfig.app.baseURL, ssrContext.url.replace(/\?.*$/, ""), PAYLOAD_FILENAME) + "?" + ssrContext.runtimeConfig.app.buildId : undefined;
 	
-	const renderer = await getRenderer();
+	const renderer = await getRenderer(ssrContext);
 	const _rendered = await renderer.renderToString(ssrContext).catch(async (error) => {
 		
 		
