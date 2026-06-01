@@ -587,7 +587,7 @@ const cachedEventHandler = defineCachedEventHandler;
 const inlineAppConfig = {
   "nuxt": {},
   "icon": {
-    "provider": "iconify",
+    "provider": "server",
     "class": "",
     "aliases": {},
     "iconifyApiEndpoint": "https://api.iconify.design",
@@ -3131,7 +3131,22 @@ _6rl4uqj9VrJr3U4v0guihqH8IhvpiUWu9RITZzJi_m4,
 _wH6JrtIxmaSoA8lCPWFnE9z4lQeXW6H5z3l5aymEQw
 ];
 
-const assets = {};
+const assets = {
+  "/index.mjs": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"228c6-7I1JwJneeMuwqE1/87azE74f7PQ\"",
+    "mtime": "2026-06-01T06:51:25.170Z",
+    "size": 141510,
+    "path": "index.mjs"
+  },
+  "/index.mjs.map": {
+    "type": "application/json",
+    "etag": "\"8612c-GqY3yIjNgIWFrG8VBaf6J21gMKI\"",
+    "mtime": "2026-06-01T06:51:25.170Z",
+    "size": 549164,
+    "path": "index.mjs.map"
+  }
+};
 
 function readAsset (id) {
   const serverDir = dirname$1(fileURLToPath(globalThis._importMeta_.url));
@@ -3466,7 +3481,7 @@ function createSSRContext(event) {
 		url,
 		event,
 		runtimeConfig: useRuntimeConfig(event),
-		noSSR: true,
+		noSSR: event.context.nuxt?.noSSR || (false),
 		head: createHead(unheadOptions),
 		error: false,
 		nuxt: undefined,
@@ -3564,7 +3579,7 @@ function lazyCachedFunction(fn) {
 	};
 }
 function getRenderer(ssrContext) {
-	return getSPARenderer() ;
+	return ssrContext.noSSR ? getSPARenderer() : getSSRRenderer();
 }
 // @ts-expect-error file will be produced after app build
 const getSSRStyles = lazyCachedFunction(() => Promise.resolve().then(function () { return styles$1; }).then((r) => r.default || r));
@@ -4126,7 +4141,7 @@ function renderPayloadJsonScript(opts) {
 		"type": "application/json",
 		"innerHTML": contents,
 		"data-nuxt-data": appId,
-		"data-ssr": false
+		"data-ssr": !(opts.ssrContext.noSSR)
 	};
 	{
 		payload.id = "__NUXT_DATA__";
@@ -4209,7 +4224,7 @@ async function renderRoute(event, ssrError) {
 	}
 	const payloadURL = _PAYLOAD_EXTRACTION ? joinURL(ssrContext.runtimeConfig.app.cdnURL || ssrContext.runtimeConfig.app.baseURL, ssrContext.url.replace(/\?.*$/, ""), PAYLOAD_FILENAME) + "?" + ssrContext.runtimeConfig.app.buildId : undefined;
 	
-	const renderer = await getRenderer();
+	const renderer = await getRenderer(ssrContext);
 	const _rendered = await renderer.renderToString(ssrContext).catch(async (error) => {
 		
 		

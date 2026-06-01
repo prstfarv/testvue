@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-  ssr: false, /** Put to false before deploy */
+  ssr: true, /** Put to false before deploy */
   modules: [
     '@nuxt/ui',
     '@pinia/nuxt',
@@ -26,6 +26,7 @@ export default defineNuxtConfig({
       maxAge: 60 * 60 * 24 * 30
     }
   },
+  css: ['~/assets/css/localfonts.css'],
   ui: {
     global: true,
   },
