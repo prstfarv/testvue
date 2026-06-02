@@ -2,7 +2,7 @@
     <div class="login__bgscreen relative min-h-screen flex flex-col md:flex-row">
     
     <!-- login ui block -->
-    <div class="w-full md:w-1/3 flex items-center backdrop-blur-md justify-center p-6">
+    <div class="w-full md:w-1/3 flex items-center backdrop-blur-lg justify-center p-6">
       <UCard 
         class="w-full bg-transparent ring-0 max-w-sm"  :ui="{ ring: '' , divide: '' }">
         <template #header>
@@ -29,7 +29,7 @@
           </UFormGroup>
 
           <UButton 
-            color="red" 
+            color="primary"
             type="submit" 
             block 
             :loading="loading" 
@@ -46,15 +46,16 @@
 
     <!-- text block -->
     <div class="login__rightcontainer w-full">
-      <div class="login__rightupchild">
+      <div class="login__titleblock">
         <!--<LangSwitcher />-->
         <h2 
-          class="login__righttext text-6xl text-white uppercase font-bold">
+          class="login__title text-6xl text-white uppercase font-bold">
           Big title
         </h2>
-        <h3 class="login__righttext-underline text-2xl text-white">Underline small text</h3>
+        <h3 class="login__subtitle text-2xl text-white">Underline small text</h3>
       </div>
-      <div class="login__rightbottomchild">
+      <div class="login__footerblock">
+        <LangSwitcher/>
         <div>link1</div>
       </div>
     </div>
@@ -63,44 +64,60 @@
 </template>
 
 <script setup lang="ts">
+/** Initialize store */
 const authStore = useAuthStore()
 
+/** Initialize toast popup */
 const toast = useToast()
 
+/** Connection timeout message */
+const CONNECTION_TIMEOUT_MESSAGE = "Connection Timeout"
+
+/** Default user login and password */
 const form = ref(
   { 
     email: 'test@mail.ru', 
     password: 'testtest' 
   })
 
+/** Loading boolean */
 const loading = ref(false)
 
+/**
+ * Handle login event
+ */
 async function handleLogin() {
+  /** Set loading status to true for displaying spinner on button */
   loading.value = true
-  
+  /** Catching of errors in case of auth fails */
   try {
+    /** In case of connection issues drop error with connection error message */
     const timeoutPromise = new Promise((_, reject) => 
-      setTimeout(() => reject(new Error('Connection Timeout')), 5000)
+      setTimeout(() => reject(new Error(CONNECTION_TIMEOUT_MESSAGE)), 5000)
     )
 
+    /** Set auth timeout promise */
     await Promise.race([
       authStore.login(form.value.email, form.value.password),
       timeoutPromise
     ])
 
+    /** Initialize supabase user data */
     const user = useSupabaseUser()
+    /** Auth attemps */
     let attempts = 0
-    /** Promise max attempts */
+    /** Count promise max auth fail attempts. Not greater then 20. */
     while (!user.value && attempts < 20) {
       await new Promise(resolve => setTimeout(resolve, 100))
       attempts++
     }
 
+    /** Successfull auth toast for user */
     toast.add({ title: $t('welcome'), color: 'green' })
     await navigateTo('/dashboard')
 
   } catch (error) {
-    if (error.message === 'Connection Timeout') {
+    if (error.message==CONNECTION_TIMEOUT_MESSAGE) {
       toast.add({
         title: 'Connection Unstable',
         description: 'Request timed out. Please check your internet.',
@@ -121,6 +138,7 @@ async function handleLogin() {
 
 onMounted(() => {
   console.log('mounted')
+  /** Get supabase user settings */
   const user = useSupabaseUser()
   if (user.value) {
     navigateTo('/dashboard') // This might be slow if network is bad
@@ -138,15 +156,16 @@ onMounted(() => {
   &__rightcontainer
     display: flex
     flex-direction: column
-  &__rightupchild
+  &__titleblock
+    text-align: right
     text-align: right
     flex: 1
     margin: 70px
-  &__rightbottomchild
-    text-align: right
-  &__righttext
+  &__title
     font-family: FuturaMedium
-    &-underline
-      font-family: FuturaLight
-      line-height: 0.1
+  &__subtitle
+    font-family: FuturaLight
+    line-height: 0.1
+  &__footerblock
+    padding: 20px
 </style>

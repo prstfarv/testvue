@@ -6,14 +6,15 @@ export default defineNuxtConfig({
     '@nuxtjs/supabase',
     '@nuxtjs/i18n'
   ],
+  /** TODO: make it more configurable in the app settings, not nuxt */
   i18n: {
     locales: [
       { code: 'en', iso: 'en-US', file: 'en.json', name: 'English' },
       { code: 'ru', iso: 'ru-RU', file: 'ru.json', name: 'Русский' }
     ],
+    //langDir: '../locales/',
     defaultLocale: 'en',
     lazy: true,
-    langDir: '../locales/',
     strategy: 'no_prefix',
     detectBrowserLanguage: {
       useCookie: true,
@@ -27,12 +28,30 @@ export default defineNuxtConfig({
     }
   },
   css: ['~/assets/css/localfonts.css'],
+  /** Same as i18n settings, brand colors must be configurable in app settings*/
   ui: {
     global: true,
+    primary: '#FFA500'
+  },
+  tailwindcss: {
+    theme: {
+      extend: {
+        colors: {
+          brand: {
+            50: '#fff7ed',
+            100: '#ffedd5',
+            500: '#f97316', // Your main accent
+            600: '#ea580c',
+            900: '#7c2d12',
+          }
+        }
+      }
+    }
   },
   app: {
     baseURL: '/testvue/'
   },
+  /** Supabase credentials, not very safe */
   supabase: {
     url: process.env.SUPABASE_URL || 'https://mcyvnwyswlrskhoblaxt.supabase.co',
     key: process.env.SUPABASE_ANON_KEY || 'sb_publishable_xmJwlMbKdHcN99MknibiZQ_c51E8-dd',
