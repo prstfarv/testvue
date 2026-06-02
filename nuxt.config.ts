@@ -12,7 +12,7 @@ export default defineNuxtConfig({
       { code: 'en', iso: 'en-US', file: 'en.json', name: 'English' },
       { code: 'ru', iso: 'ru-RU', file: 'ru.json', name: 'Русский' }
     ],
-    //langDir: '../locales/',
+    langDir: '../locales/',
     defaultLocale: 'en',
     lazy: true,
     strategy: 'no_prefix',
@@ -48,9 +48,9 @@ export default defineNuxtConfig({
       }
     }
   },
-  app: {
+  /*app: {
     baseURL: '/testvue/'
-  },
+  },*/
   /** Supabase credentials, not very safe */
   supabase: {
     url: process.env.SUPABASE_URL || 'https://mcyvnwyswlrskhoblaxt.supabase.co',
