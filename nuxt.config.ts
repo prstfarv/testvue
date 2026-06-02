@@ -31,7 +31,7 @@ export default defineNuxtConfig({
   /** Same as i18n settings, brand colors must be configurable in app settings*/
   ui: {
     global: true,
-    primary: '#FFA500'
+    primary: 'red'
   },
   tailwindcss: {
     theme: {
@@ -48,9 +48,9 @@ export default defineNuxtConfig({
       }
     }
   },
-  app: {
+  /*app: {
     baseURL: '/testvue/'
-  },
+  },*/
   /** Supabase credentials, not very safe */
   supabase: {
     url: process.env.SUPABASE_URL || 'https://mcyvnwyswlrskhoblaxt.supabase.co',
