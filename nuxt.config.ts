@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-  ssr: true, /** Put to false before deploy */
+  ssr: false, /** Put to false before deploy */
   modules: [
     '@nuxt/ui',
     '@pinia/nuxt',
