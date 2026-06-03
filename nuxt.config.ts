@@ -33,9 +33,9 @@ export default defineNuxtConfig({
     global: true
   },
   /** Comment out before deploy */
-  /*app: {
+  app: {
     baseURL: '/testvue/'
-  },*/
+  },
   /** Supabase credentials, not very safe */
   supabase: {
     url: process.env.SUPABASE_URL || 'https://mcyvnwyswlrskhoblaxt.supabase.co',
