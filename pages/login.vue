@@ -55,37 +55,41 @@
         <h3 class="login__subtitle text-2xl text-white">Underline small text</h3>
       </div>
       <div class="login__footerblock">
-        <LangSwitcher/>
-        <div class="login__footerlinks text-2md text-white font-bold">
+        <div class="login__footerlinks text-2md text-white font-bold uppercase">
           <div class="login__footerlink">
             <ULink 
-              to="/" 
-              active-class="text-primary-500 login__footerlink-withicon" 
+              to="/"
+              class="login__footerlink-withicon" 
+              active-class="text-primary-500" 
               inactive-class="text-gray-500"
               icon="i-heroicons-bars-4"
             >
               <UIcon name="i-heroicons-cog-6-tooth" />
-              <span>Link1</span>
+              <span>prstfarv.github.io</span>
             </ULink>
           </div>
           <div class="login__footerlink">
             <ULink 
-              to="/" 
+              to="/"
+              class="login__footerlink-withicon"
               active-class="text-primary-500" 
               inactive-class="text-gray-500"
               icon="i-heroicons-squares-2x2"
             >
-              Home
+              <UIcon name="i-heroicons-cog-6-tooth" />
+              <span>Verstka</span>
             </ULink>
           </div>
           <div class="login__footerlink">
             <ULink 
-              to="/" 
+              to="/"
+              class="login__footerlink-withicon"
               active-class="text-primary-600" 
               inactive-class="text-gray-500"
               icon="i-heroicons-squares-2x2"
             >
-              Home
+              <UIcon name="i-heroicons-cog-6-tooth" />
+              <span>Vizitka</span>
             </ULink>
           </div>
         </div>
@@ -203,9 +207,12 @@ onMounted(() => {
   &__footerlinks
     display: flex
     flex-direction: row
+    float: right
   &__footerlink
-    flex: 1
+    padding: 30px
     &-withicon
       display: flex
       align-items: center
+      &>span
+        margin: 0 0 2px 0
 </style>

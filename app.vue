@@ -10,6 +10,6 @@
   background-color: #f91616 !important;
 }
 .bg-secondary-500 {
-  background-color: #c0c0c0 !important;
+  background-color: #ffffff !important;
 }
 </style>
