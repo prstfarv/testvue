@@ -11,13 +11,16 @@
   </div>
 </template>
 
-<script setup lang="ts">
-const appst = appStore()
-const { locale, locales, setLocale } = useI18n()
 
-const switchLanguage = (code) => {
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
+const { locale, locales } = useI18n()
+const store = appStore()
+
+const switchLanguage = (lang: string) => {
   console.log("switch language")
-  appst.setLanguage(code)
-  console.log(appst)
+  //console.log(store)
+  store.setLanguage(lang)
 }
 </script>

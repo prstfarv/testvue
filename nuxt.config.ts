@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-  ssr: false, /** Put to false before deploy */
+  ssr: true, /** Put to false before deploy */
   modules: [
     '@nuxt/ui',
     '@pinia/nuxt',
@@ -12,7 +12,7 @@ export default defineNuxtConfig({
       { code: 'en', iso: 'en-US', file: 'en.json', name: 'English' },
       { code: 'ru', iso: 'ru-RU', file: 'ru.json', name: 'Русский' }
     ],
-    langDir: '../locales/',
+    langDir: 'locales/',
     defaultLocale: 'en',
     lazy: true,
     strategy: 'no_prefix',
@@ -30,27 +30,11 @@ export default defineNuxtConfig({
   css: ['~/assets/css/localfonts.css'],
   /** Same as i18n settings, brand colors must be configurable in app settings*/
   ui: {
-    global: true,
-    primary: 'red'
+    global: true
   },
-  tailwindcss: {
-    theme: {
-      extend: {
-        colors: {
-          brand: {
-            50: '#fff7ed',
-            100: '#ffedd5',
-            500: '#f97316', // Your main accent
-            600: '#ea580c',
-            900: '#7c2d12',
-          }
-        }
-      }
-    }
-  },
-  /*app: {
+  app: {
     baseURL: '/testvue/'
-  },*/
+  },
   /** Supabase credentials, not very safe */
   supabase: {
     url: process.env.SUPABASE_URL || 'https://mcyvnwyswlrskhoblaxt.supabase.co',

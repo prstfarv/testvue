@@ -42,7 +42,7 @@
     </div>
 
     <!-- line block -->
-    <div class="absolute left-[25.3%] top-0 bottom-0 w-1 bg-red-500 hidden md:block"></div>
+    <!--<div class="absolute left-[25.3%] top-0 bottom-0 w-1 bg-red-500 hidden md:block"></div>-->
 
     <!-- text block -->
     <div class="login__rightcontainer w-full">
@@ -56,7 +56,39 @@
       </div>
       <div class="login__footerblock">
         <LangSwitcher/>
-        <div>link1</div>
+        <div class="login__footerlinks text-2md text-white font-bold">
+          <div class="login__footerlink">
+            <ULink 
+              to="/" 
+              active-class="text-primary-500 login__footerlink-withicon" 
+              inactive-class="text-gray-500"
+              icon="i-heroicons-bars-4"
+            >
+              <UIcon name="i-heroicons-cog-6-tooth" />
+              <span>Link1</span>
+            </ULink>
+          </div>
+          <div class="login__footerlink">
+            <ULink 
+              to="/" 
+              active-class="text-primary-500" 
+              inactive-class="text-gray-500"
+              icon="i-heroicons-squares-2x2"
+            >
+              Home
+            </ULink>
+          </div>
+          <div class="login__footerlink">
+            <ULink 
+              to="/" 
+              active-class="text-primary-600" 
+              inactive-class="text-gray-500"
+              icon="i-heroicons-squares-2x2"
+            >
+              Home
+            </ULink>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -168,4 +200,12 @@ onMounted(() => {
     line-height: 0.1
   &__footerblock
     padding: 20px
+  &__footerlinks
+    display: flex
+    flex-direction: row
+  &__footerlink
+    flex: 1
+    &-withicon
+      display: flex
+      align-items: center
 </style>

@@ -1,14 +1,27 @@
-export const appStore = defineStore('app', () => {
-    const { locale, setLocale } = useI18n()
+import { defineStore } from 'pinia'
 
-    const currentLanguage = computed(() => locale.value)
-
-    async function setLanguage(lang) {
-        locale.value = lang
-    }
+export const appStore = defineStore('app', {
     
-    return {
-        currentLanguage,
-        setLanguage
+  // 1. State: Holds reactive data
+  state: () => ({
+    // Example of other app state you might have
+    isLoading: false,
+    sidebarOpen: true
+  }),
+
+  // 2. Actions: Methods to modify state or call external logic
+  actions: {
+    /**
+     * Switches the language globally.
+     * 
+     * @param lang - The locale code (e.g., 'en', 'fr')
+     */
+    async setLanguage(lang: string) {
+      // Access the i18n plugin function inside the action
+      const nuxtApp = useNuxtApp()
+      // Set the locale.
+      // This updates the cookie, the reactive state, and (if needed) the URL.
+      await nuxtApp.$i18n.setLocale(lang)
     }
+  }
 })
