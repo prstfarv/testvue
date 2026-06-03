@@ -32,6 +32,7 @@ export default defineNuxtConfig({
   ui: {
     global: true
   },
+  /** deploy only url */
   app: {
     baseURL: '/testvue/'
   },
