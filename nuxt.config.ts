@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-  ssr: false, /** Put to false before deploy */
+  ssr: true, /** Put to false before deploy */
   modules: [
     '@nuxt/ui',
     '@pinia/nuxt',
@@ -33,9 +33,9 @@ export default defineNuxtConfig({
     global: true
   },
   /** Comment out before deploy */
-  app: {
+  /*app: {
     baseURL: '/testvue/'
-  },
+  },*/
   /** Supabase credentials, not very safe */
   supabase: {
     url: process.env.SUPABASE_URL || 'https://mcyvnwyswlrskhoblaxt.supabase.co',

@@ -54,42 +54,46 @@
         </h2>
         <h3 class="login__subtitle text-2xl text-white">Underline small text</h3>
       </div>
+
+    <div class="w-full overflow-hidden group relative">
+    
+    <div class="absolute inset-0 mask-gradient pointer-events-none z-10"></div>
+
+    <!-- The Track -->
+    <div class="scroll-track items-center py-4">
+      
+      <UCard 
+        v-for="item in 9" 
+         
+        class="min-h-64 shrink-0 hover:shadow-2xl transition-shadow"
+      >
+        <template #header>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-primary-100 text-primary-600 rounded-full flex items-center justify-center" />
+            <h3 class="font-bold text-2xl">test</h3>
+          </div>
+        </template>
+        <div class="space-y-4">
+          <p class="text-lg text-gray-600 dark:text-gray-300">
+            test
+          </p>
+          <UButton color="primary" variant="ghost">Learn more &rarr;</UButton>
+        </div>
+      </UCard>
+      </div>
+      </div>
+
       <div class="login__footerblock">
         <div class="login__footerlinks text-2md text-white font-bold uppercase">
-          <div class="login__footerlink">
+          <div class="login__footerlink" v-for="link in footer_links">
             <ULink 
-              to="/"
+              :to="link.to"
               class="login__footerlink-withicon" 
               active-class="text-primary-500" 
               inactive-class="text-gray-500"
-              icon="i-heroicons-bars-4"
             >
-              <UIcon name="i-heroicons-cog-6-tooth" />
-              <span>prstfarv.github.io</span>
-            </ULink>
-          </div>
-          <div class="login__footerlink">
-            <ULink 
-              to="/"
-              class="login__footerlink-withicon"
-              active-class="text-primary-500" 
-              inactive-class="text-gray-500"
-              icon="i-heroicons-squares-2x2"
-            >
-              <UIcon name="i-heroicons-cog-6-tooth" />
-              <span>Verstka</span>
-            </ULink>
-          </div>
-          <div class="login__footerlink">
-            <ULink 
-              to="/"
-              class="login__footerlink-withicon"
-              active-class="text-primary-600" 
-              inactive-class="text-gray-500"
-              icon="i-heroicons-squares-2x2"
-            >
-              <UIcon name="i-heroicons-cog-6-tooth" />
-              <span>Vizitka</span>
+              <UIcon :name="link.icon" />
+              <span>{{link.name}}</span>
             </ULink>
           </div>
         </div>
@@ -118,6 +122,24 @@ const form = ref(
 
 /** Loading boolean */
 const loading = ref(false)
+
+const footer_links = ref([
+  {
+    name: 'prstfarv.github.io',
+    to: '/',
+    icon: 'i-heroicons-link'
+  },
+  {
+    name: 'verstka',
+    to: '/',
+    icon: 'i-heroicons-link'
+  },
+  {
+    name: 'vizitka',
+    to: '/',
+    icon: 'i-heroicons-link'
+  }
+])
 
 /**
  * Handle login event
@@ -215,4 +237,20 @@ onMounted(() => {
       align-items: center
       &>span
         margin: 0 0 2px 0
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.scroll-track {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  animation: scroll 20s linear infinite;
+}
+
+.mask-gradient {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
 </style>
