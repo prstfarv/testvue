@@ -63,7 +63,7 @@
     <div class="scroll-track items-center py-4">
       
       <UCard 
-        v-for="item in 9" 
+        v-for="item in 10" 
          
         class="min-h-64 shrink-0 hover:shadow-2xl transition-shadow"
       >
@@ -244,13 +244,14 @@ onMounted(() => {
 }
 
 .scroll-track {
-  display: flex;
-  gap: 1.5rem;
-  width: max-content;
-  animation: scroll 20s linear infinite;
+  display: flex
+  max-width: 500px
+  gap: 1.5rem
+  width: max-content
+  animation: scroll 10s linear infinite
 }
 
 .mask-gradient {
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent)
 }
 </style>
